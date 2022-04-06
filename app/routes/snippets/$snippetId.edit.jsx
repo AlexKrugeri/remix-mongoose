@@ -1,4 +1,13 @@
-import { useLoaderData, useCatch, json, Link, redirect } from "remix";
+import {
+  useLoaderData,
+  useCatch,
+  json,
+  Link,
+  redirect,
+  Form,
+  useActionData,
+  path,
+} from "remix";
 import connectDb from "~/db/connectDb.server.js";
 import Button from "~/components/Button.jsx";
 
@@ -13,39 +22,114 @@ export async function loader({ params }) {
   return json(snippet);
 }
 
-export const action = async function ({ request, params }) {
-  const db = await connectDb();
-  const snippet = await db.models.Snippet.findById(params.snippetId);
+export async function action({ request, params }) {
   const form = await request.formData();
-  if (form.get("_method") === "delete") {
-    await db.models.Snippet.deleteOne(snippet);
-    return redirect("/");
+  const db = await connectDb();
+  const id = params.snippetId;
+  console.log(id);
+  try {
+    await db.models.Snippet.findByIdAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        $set: {
+          title: form.get("title"),
+          body: form.get("body"),
+          language: form.get("language"),
+        },
+      }
+    );
+    return redirect(`/`);
+  } catch (error) {
+    return json(
+      { errors: error.errors, values: Object.fromEntries(form) },
+      { status: 400 }
+    );
   }
-};
+}
 
-export default function SnippetPage() {
-  const snippet = useLoaderData();
+export default function EditSnippet() {
+  const actionData = useActionData();
+
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">{snippet.title}</h1>
-      <code>
-        <pre>{snippet.body}</pre>
-      </code>
-      <p>{snippet.language}</p>
+    <div className="p-8  w-1/2">
+      <h1>Edit snippet</h1>
+      <Form method="post" className="mt-10 p-10 bg-slate-100 flex flex-col">
+        <label
+          htmlFor="title"
+          className="block text-slate-800 font-bold text-2xl"
+        >
+          Title
+        </label>
+        <input
+          type="text"
+          name="title"
+          defaultValue={actionData?.values.title}
+          id="title"
+          className={
+            actionData?.errors.title ? "border-2 border-red-500" : "px-4 py-2"
+          }
+        />
+        {actionData?.errors.title && (
+          <p className="text-red-500">{actionData.errors.title.message}</p>
+        )}
+        <br />
 
-      <form
-        method="post"
-        className="mt-5 pt-2 border-t border-gray-200 flex items-center  "
-      >
-        <input type="hidden" name="_method" value="delete" />
-        <Button type="submit" destructive>
-          DELETE
-        </Button>
+        <label
+          htmlFor="body"
+          className="block text-slate-800 font-bold text-2xl"
+        >
+          Body
+        </label>
+        <input
+          type="text"
+          name="body"
+          defaultValue={actionData?.values.body}
+          id="body"
+          className={
+            actionData?.errors.body ? "border-2 border-red-500" : "px-4 py-2"
+          }
+        />
+        {actionData?.errors.body && (
+          <p className="text-red-500">{actionData.errors.body.message}</p>
+        )}
+        <br />
 
-        <Link to={`edit`} className="font-semibold">
-          <h3 className="m-6">EDIT</h3>
-        </Link>
-      </form>
+        <label
+          htmlFor="language"
+          className="block text-slate-800 font-bold text-2xl"
+        >
+          Language
+        </label>
+        <input
+          type="text"
+          name="language"
+          defaultValue={actionData?.values.language}
+          id="language"
+          className={
+            actionData?.errors.language
+              ? "border-2 border-red-500"
+              : "px-4 py-2"
+          }
+        />
+        {actionData?.errors.language && (
+          <p className="text-red-500">{actionData.errors.language.message}</p>
+        )}
+        <br />
+
+        <button
+          type="submit"
+          className="w-fit inline-flex items-center h-10 px-5 text-indigo-100 transition-colors duration-150 bg-slate-800 rounded-lg focus:shadow-outline hover:bg-indigo-800"
+        >
+          SAVE
+          <path
+            fillRule="evenodd"
+            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+            clipRule="evenodd"
+          />
+        </button>
+      </Form>
     </div>
   );
 }

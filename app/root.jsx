@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  path,
 } from "remix";
 import styles from "~/tailwind.css";
 
@@ -47,7 +48,7 @@ export default function App() {
             to="/snippets/new"
             className="ml-3 hover:underline text-slate-800"
           >
-            <button class="inline-flex items-center h-10 px-5 text-indigo-100 transition-colors duration-150 bg-slate-800 rounded-lg focus:shadow-outline hover:bg-indigo-800">
+            <button className="inline-flex items-center h-10 px-5 text-indigo-100 transition-colors duration-150 bg-slate-800 rounded-lg focus:shadow-outline hover:bg-indigo-800">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"

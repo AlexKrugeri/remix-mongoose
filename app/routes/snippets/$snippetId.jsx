@@ -1,4 +1,4 @@
-import { useLoaderData, useCatch, json, Link, redirect } from "remix";
+import { useLoaderData, useCatch, json, Link, redirect, path } from "remix";
 import connectDb from "~/db/connectDb.server.js";
 import Button from "~/components/Button.jsx";
 

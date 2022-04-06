@@ -1,4 +1,4 @@
-import { Form, redirect, json, useActionData } from "remix";
+import { Form, redirect, json, useActionData, path } from "remix";
 import connectDb from "~/db/connectDb.server";
 
 export async function action({ request }) {
