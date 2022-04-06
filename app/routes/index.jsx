@@ -11,7 +11,7 @@ export default function Index() {
   const snippets = useLoaderData();
 
   return (
-    <div>
+    <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">Snippets Library</h1>
       <h2 className="text-lg font-bold mb-3">
         From now on, only painful snippets:

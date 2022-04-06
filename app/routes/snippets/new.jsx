@@ -22,10 +22,13 @@ export async function action({ request }) {
 export default function CreateSnippet() {
   const actionData = useActionData();
   return (
-    <div>
+    <div className="p-8  w-1/2">
       <h1>Add snippet</h1>
-      <Form method="post">
-        <label htmlFor="title" className="block">
+      <Form method="post" className="mt-10 p-10 bg-slate-100 flex flex-col">
+        <label
+          htmlFor="title"
+          className="block text-slate-800 font-bold text-2xl"
+        >
           Title
         </label>
         <input
@@ -34,7 +37,7 @@ export default function CreateSnippet() {
           defaultValue={actionData?.values.title}
           id="title"
           className={
-            actionData?.errors.title ? "border-2 border-red-500" : null
+            actionData?.errors.title ? "border-2 border-red-500" : "px-4 py-2"
           }
         />
         {actionData?.errors.title && (
@@ -42,7 +45,10 @@ export default function CreateSnippet() {
         )}
         <br />
 
-        <label htmlFor="body" className="block">
+        <label
+          htmlFor="body"
+          className="block text-slate-800 font-bold text-2xl"
+        >
           Body
         </label>
         <input
@@ -50,14 +56,19 @@ export default function CreateSnippet() {
           name="body"
           defaultValue={actionData?.values.body}
           id="body"
-          className={actionData?.errors.body ? "border-2 border-red-500" : null}
+          className={
+            actionData?.errors.body ? "border-2 border-red-500" : "px-4 py-2"
+          }
         />
         {actionData?.errors.body && (
           <p className="text-red-500">{actionData.errors.body.message}</p>
         )}
         <br />
 
-        <label htmlFor="language" className="block">
+        <label
+          htmlFor="language"
+          className="block text-slate-800 font-bold text-2xl"
+        >
           Language
         </label>
         <input
@@ -66,7 +77,9 @@ export default function CreateSnippet() {
           defaultValue={actionData?.values.language}
           id="language"
           className={
-            actionData?.errors.language ? "border-2 border-red-500" : null
+            actionData?.errors.language
+              ? "border-2 border-red-500"
+              : "px-4 py-2"
           }
         />
         {actionData?.errors.language && (
@@ -74,7 +87,17 @@ export default function CreateSnippet() {
         )}
         <br />
 
-        <button type="submit">Save</button>
+        <button
+          type="submit"
+          className="w-fit inline-flex items-center h-10 px-5 text-indigo-100 transition-colors duration-150 bg-slate-800 rounded-lg focus:shadow-outline hover:bg-indigo-800"
+        >
+          SAVE
+          <path
+            fillRule="evenodd"
+            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+            clipRule="evenodd"
+          />
+        </button>
       </Form>
     </div>
   );
