@@ -1,4 +1,4 @@
-import { useLoaderData, Link } from "remix";
+import { useLoaderData, Link, useSearchParams } from "remix";
 import connectDb from "~/db/connectDb.server.js";
 
 export async function loader() {
@@ -9,6 +9,16 @@ export async function loader() {
 
 export default function Index() {
   const snippets = useLoaderData();
+  const [params] = useSearchParams();
+  const searchValue = params.get("query");
+
+  const filteredSnippets = snippets.filter((snippet) => {
+    if (searchValue === null) {
+      return snippet;
+    } else {
+      return snippet.title.toLowerCase().includes(searchValue);
+    }
+  });
 
   return (
     <div className="p-8">
@@ -17,7 +27,7 @@ export default function Index() {
         From now on, only painful snippets:
       </h2>
       <ul className="ml-5 list-disc">
-        {snippets.map((snippet) => {
+        {filteredSnippets.map((snippet) => {
           return (
             <li key={snippet._id}>
               <Link
