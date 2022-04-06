@@ -6,7 +6,6 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  path,
 } from "remix";
 import styles from "~/tailwind.css";
 

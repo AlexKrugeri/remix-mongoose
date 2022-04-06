@@ -6,7 +6,6 @@ import {
   redirect,
   Form,
   useActionData,
-  path,
 } from "remix";
 import connectDb from "~/db/connectDb.server.js";
 import Button from "~/components/Button.jsx";

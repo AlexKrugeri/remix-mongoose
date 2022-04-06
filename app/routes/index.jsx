@@ -1,4 +1,4 @@
-import { useLoaderData, Link, path } from "remix";
+import { useLoaderData, Link } from "remix";
 import connectDb from "~/db/connectDb.server.js";
 
 export async function loader() {
