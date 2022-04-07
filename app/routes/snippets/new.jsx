@@ -22,9 +22,9 @@ export async function action({ request }) {
 export default function CreateSnippet() {
   const actionData = useActionData();
   return (
-    <div className="p-8  w-1/2">
+    <div className="p-8 w-1/2">
       <h1>Add snippet</h1>
-      <Form method="post" className="mt-10 p-10 bg-slate-100 flex flex-col">
+      <Form method="post" className="mt-10 p-10 bg-slate-100 flex flex-col ">
         <label
           htmlFor="title"
           className="block text-slate-800 font-bold text-2xl"

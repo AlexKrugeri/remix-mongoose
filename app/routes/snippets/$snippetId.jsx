@@ -28,7 +28,7 @@ export default function SnippetPage() {
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">{snippet.title}</h1>
-      <code>
+      <code className="text-xl leading-relaxed mt-6 mb-4 text-gray-800">
         <pre>{snippet.body}</pre>
       </code>
       <p>{snippet.language}</p>

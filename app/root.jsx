@@ -31,6 +31,7 @@ export function meta() {
 
 export default function App() {
   const [params] = useSearchParams();
+
   return (
     <html lang="en">
       <head>
@@ -66,15 +67,31 @@ export default function App() {
               </button>
             </Link>
           </div>
+          <div className="flex justify-center">
+            <div className="mb-3 xl:w-96">
+              <form className="ml-4">
+                <input
+                  type="text"
+                  name="query"
+                  placeholder="Search snippets..."
+                  defaultValue={params.get("query")}
+                  className=" form-control block w-full px-3 py-1.5 mt-4 text-base font-normal text-gray-700 bg-white bg-clip-padding border
+                  border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bgwhite focus:border-blue-600 focus:outline-none "
+                />
+              </form>
+            </div>
+          </div>
+
           <div>
-            <form className="ml-4">
-              <input
-                type="text"
-                name="query"
-                placeholder="Search snippets..."
-                defaultValue={params.get("query")}
-                className=" border border-cyan-400 px-2 py-1 w-50"
-              />
+            <form
+              className="ml-4  px-3 py-1.5 mt-4 text-base font-normal text-gray-700 bg-white border
+                  border-solid border-gray-300 rounded"
+            >
+              <select defaultValue={null} id="sorting" name="sort">
+                <option value={null}>Sort by</option>
+                <option value="title">Sort by Title</option>
+              </select>
+              <button type="submit">SORT</button>
             </form>
           </div>
         </header>
